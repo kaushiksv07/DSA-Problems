@@ -13,54 +13,58 @@ code:
 */
 
 public class Solution {
-    public int solve(ArrayList<Integer> A) {
+    public int solve(ArrayList < Integer > A) {
         int n = A.size();
-        ArrayList<Integer> evenPreSum = new ArrayList<>();
-        ArrayList<Integer> oddPreSum = new ArrayList<>();
-        ArrayList<Integer> evenSufSum = new ArrayList<>();
-        ArrayList<Integer> oddSufSum = new ArrayList<>();
-        for(int i=0;i<n;i++){
+        ArrayList < Integer > evenPreSum = new ArrayList < > ();
+        ArrayList < Integer > oddPreSum = new ArrayList < > ();
+        ArrayList < Integer > evenSufSum = new ArrayList < > ();
+        ArrayList < Integer > oddSufSum = new ArrayList < > ();
+        for (int i = 0; i < n; i++) {
             evenSufSum.add(0);
             oddSufSum.add(0);
         }
+        //Get prefix even and odd sum
+
         evenPreSum.add(A.get(0));
         oddPreSum.add(0);
-        for(int i=1;i<n;i++){
-            if(i%2 == 0){
-                evenPreSum.add(evenPreSum.get(i-1) + A.get(i));
-                oddPreSum.add(oddPreSum.get(i-1));
-            }else{
-                oddPreSum.add(oddPreSum.get(i-1) + A.get(i));
-                evenPreSum.add(evenPreSum.get(i-1));
+        for (int i = 1; i < n; i++) {
+            if (i % 2 == 0) {
+                evenPreSum.add(evenPreSum.get(i - 1) + A.get(i));
+                oddPreSum.add(oddPreSum.get(i - 1));
+            } else {
+                oddPreSum.add(oddPreSum.get(i - 1) + A.get(i));
+                evenPreSum.add(evenPreSum.get(i - 1));
             }
         }
 
-        if((n-1)%2 == 0){
-            evenSufSum.set((n-1), A.get(n-1));
-            oddSufSum.set((n-1), 0);
-        }else{
-            oddSufSum.set((n-1), A.get(n-1));
-            evenSufSum.set((n-1), 0);
+        //Get suffix even and odd sum
+        if ((n - 1) % 2 == 0) {
+            evenSufSum.set((n - 1), A.get(n - 1));
+            oddSufSum.set((n - 1), 0);
+        } else {
+            oddSufSum.set((n - 1), A.get(n - 1));
+            evenSufSum.set((n - 1), 0);
         }
-        for(int i=n-2;i>=0;i--){
-            if(i%2 == 0){
-                evenSufSum.set(i, evenSufSum.get(i+1) + A.get(i));
-                oddSufSum.set(i, oddSufSum.get(i+1));
-            }else{
-                oddSufSum.set(i, oddSufSum.get(i+1) + A.get(i));
-                evenSufSum.set(i, evenSufSum.get(i+1));
+        for (int i = n - 2; i >= 0; i--) {
+            if (i % 2 == 0) {
+                evenSufSum.set(i, evenSufSum.get(i + 1) + A.get(i));
+                oddSufSum.set(i, oddSufSum.get(i + 1));
+            } else {
+                oddSufSum.set(i, oddSufSum.get(i + 1) + A.get(i));
+                evenSufSum.set(i, evenSufSum.get(i + 1));
             }
         }
 
+        
         int count = 0;
-        for(int i=0;i<n;i++){
-            int evenSum = (i == 0 ? 0 : evenPreSum.get(i-1)) + (i == n-1 ? oddSufSum.get(n-1) : oddSufSum.get(i+1));
-            int oddSum = (i == 0 ? 0 : oddPreSum.get(i-1)) + (i == n-1 ? evenSufSum.get(n-1) : evenSufSum.get(i+1));
-            if(evenSum == oddSum){
+        for (int i = 0; i < n; i++) {
+            int evenSum = (i == 0 ? 0 : evenPreSum.get(i - 1)) + (i == n - 1 ? oddSufSum.get(n - 1) : oddSufSum.get(i + 1));
+            int oddSum = (i == 0 ? 0 : oddPreSum.get(i - 1)) + (i == n - 1 ? evenSufSum.get(n - 1) : evenSufSum.get(i + 1));
+            if (evenSum == oddSum) {
                 count++;
             }
         }
         return count;
     }
-   
+
 }
