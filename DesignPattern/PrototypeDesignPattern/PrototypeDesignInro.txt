@@ -1,0 +1,15 @@
+Prototype design pattern
+
+Problem statement:
+	Create an object, create a copy of object
+
+Draw back of the constructor
+1.No usability
+2.No maintainable & extensible
+3. Private members may not have setters
+4. Client has to be exposed to entire class
+
+
+To solve, we brought a copy constructor
+
+And the copy constructor solves all the problems but StudentUill class. The problem has been explained. Please go through the code
